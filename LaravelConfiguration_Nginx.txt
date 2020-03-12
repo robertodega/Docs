@@ -1,0 +1,171 @@
+
+************************************************************************************************************************************************************
+
+Guide:	https://noviello.it/come-installare-e-configurare-laravel-con-lemp-su-ubuntu-18-04/
+
+************************************************************************************************************************************************************
+
+>   Update the system packages to the latest versions
+
+    -   sudo apt update && sudo apt upgrade
+
+>   web server web Nginx installation
+
+    -   sudo apt install nginx-core  
+    -   sudo apt install nginx-extras
+    -   sudo apt install nginx-full  
+    -   sudo apt install nginx-light
+
+>   Installing PHP 
+
+    -   sudo apt install php7.2-common php7.2-cli php7.2-gd php7.2-mysql php7.2-curl php7.2-intl php7.2-mbstring php7.2-bcmath php7.2-imap php7.2-xml php7.2-zip
+
+>   Installing Composer 
+    (download the Composer installer with curl and move the file to the /usr/local/bin director)
+
+    -   curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+
+>   Verify the installation by printing the composer version:
+
+    -   composer --version
+
+>   Installing Laravel
+
+    -   composer create-project --prefer-dist laravel/laravel my_app
+
+>   Laravel has been installed on Ubuntu system. When installed via Composer, Laravel will automatically create a file named .env. 
+    This file includes custom configuration variables including the database credentials. 
+
+    -   cd ~/my_app
+    -   nano .env
+
+        __________________________________________________________________________________________________________________________________
+
+        >   Example Configuration file (.env)
+
+        -   APP_ENV=local
+        -   APP_DEBUG=true
+
+        -   Development / Testing environment installation
+            -   APP_DEBUG=true                                  (important debug informations during test)
+            -   APP_ENV=development or testing
+
+        -   Production environment installation
+            -   APP_DEBUG=false
+            -   APP_ENV=production
+
+        -   APP_KEY: unique key automatically generated during Laravel installation with Composer. It's not necessary to modify this value. 
+
+            To generate a new secure key:
+
+                -   php artisan key:generate
+
+>   To read more about how to configure Laravel --> https://laravel.com/docs/5.7/configuration
+
+        __________________________________________________________________________________________________________________________________
+
+>   To start the development server (each time needed for development) exec the artisan serve command:
+
+    -   php artisan serve
+
+>   Output: Laravel development server started: <http://127.0.0.1:8000>
+
+
+>   Verifying the Installation
+
+    -   Open your browser, type http://127.0.0.1:8000
+
+>   Laravel screen will appear
+
+>   Nginx Web Server configuration
+
+    -   move application in default folder for web application executing in Nginx (/var/www/)
+
+        -   sudo mv ~/my_app /var/www/my_app
+
+    -   write access for user to storage & cache folders
+
+        -   sudo chown -R www-data.www-data /var/www/my_app/storage
+        -   sudo chown -R www-data.www-data /var/www/my_app/bootstrap/cache
+
+    -   Creation of new Virtual Host file for Nginx
+
+        -   sudo nano /etc/nginx/sites-available/my_app
+
+    -   Configurations:
+
+            server {
+                listen 80;
+                server_name my_app;
+                root /var/www/my_app/public;
+
+                add_header X-Frame-Options "SAMEORIGIN";
+                add_header X-XSS-Protection "1; mode=block";
+                add_header X-Content-Type-Options "nosniff";
+
+                index index.html index.htm index.php;
+
+                charset utf-8;
+
+                location / {
+                    try_files $uri $uri/ /index.php?$query_string;
+                }
+
+                location = /favicon.ico { access_log off; log_not_found off; }
+                location = /robots.txt  { access_log off; log_not_found off; }
+
+                error_page 404 /index.php;
+
+                location ~ \.php$ {
+                    fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+                    fastcgi_index index.php;
+                    fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+                    include fastcgi_params;
+                }
+
+                location ~ /\.(?!well-known).* {
+                    deny all;
+                }
+            }
+
+    -   Activation of new Virtual Host configuration file
+
+        -   sudo ln -s /etc/nginx/sites-available/my_app /etc/nginx/sites-enabled/
+
+    -   Check correct configuration of Nginx
+
+        -   sudo nginx -t
+
+                -   -->     nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+                -   -->     nginx: configuration file /etc/nginx/nginx.conf test is successful
+
+    -   Reboot Nginx to activate last modifies
+    
+        -   sudo systemctl reload nginx
+
+            -   Possible error (Apache Web Server already present) - [ nginx.service is not active, cannot reload. ]
+
+                -   sudo service nginx start
+                        -->     Job for nginx.service failed because the control process exited with error code.
+                        -->     See "systemctl status nginx.service" and "journalctl -xe" for details.
+
+                -   sudo fuser -k 80/tcp
+                -   sudo fuser -k 443/tcp
+                -   sudo service nginx restart
+
+                -   sudo systemctl reload nginx
+
+    -   Open server_name in browser
+
+        -   http://my_app
+
+        
+************************************************************************************************************************************************************
+
+
+
+
+
+
+
+
