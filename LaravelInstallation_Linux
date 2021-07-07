@@ -1,0 +1,67 @@
+-- ------------------------------- Laravel Installation ----------------------------------------------------------------------------------
+
+-- ------------------------------- method 1 - Laravel Install via Sail Services 
+
+    --  cd ~
+    --  curl -s https://laravel.build/PROJECT_NAME | bash
+    --  cd PROJECT_NAME && ./vendor/bin/sail up
+
+    -- -------------------------------  method 2 - Laravel Install via Composer
+
+    --  composer create-project laravel/laravel PROJECT_NAME
+    
+    -- -------------------------------  method 3 - Laravel Install via Installer    [ BETTER ]
+
+    --  cd ~/.config/composer/vendor/bin
+    --  pwd     =>  /home/roby/.config/composer/vendor/bin
+    --  cd
+    --  nano .bashrc
+    --  aggiungere export PATH=/home/roby/.config/composer/vendor/bin:$PATH => Save & Exit
+    --  source .bashrc
+    --  ora il comando laravel è disponibile globalmente
+    --  cd /opt/lampp/htdocs/WWW/LARAVEL    ->  laravel new PROJECT_NAME
+
+    -- ------------------------------- Utilizzo VirtualHost per lanciare progetto Laravel ---------------------------------------------------
+
+    --  sudo nano /opt/lampp/etc/httpd.conf
+    --  decommentare riga # Include etc/extra/httpd-vhosts.conf [ sotto # Virtual hosts ]
+    --  copiare il path_di_httpd-vhosts [ etc/extra/httpd-vhosts.conf ] => Save & Exit 
+    --  sudo nano /opt/lampp/path_di_httpd-vhosts   [ sudo nano /opt/lampp/etc/extra/httpd-vhosts.conf ]
+    --  aggiungere
+
+        <VirtualHost *:80>
+            ServerAdmin webmaster@dummy-host2.example.com
+            DocumentRoot "/opt/lampp/htdocs/WWW/LARAVEL/PROJECT_NAME"
+            DirectoryIndex index.php
+            ServerName laravelTest.local
+            ErrorLog "logs/PROJECT_NAME.local-error_log"
+            CustomLog "logs/PROJECT_NAME.local-access_log" common
+            <Directory "/opt/lampp/htdocs/WWW/LARAVEL/PROJECT_NAME/public">
+                Options All
+                AllowOverride All
+                Require all granted
+            </Directory>
+        </VirtualHost>
+
+
+    --  Copiare il valore di 'ServerName' ->  Save & Exit 
+    --  sudo nano /etc/hosts
+    --  aggiungere di fianco a '127.0.0.1 localhost' il nuovo ServerName ->  Save & Exit 
+    --  ricaricare il file di configurazione di Xampp [ sudo /opt/lampp/lampp reload ]
+    --  restart di Apache [ cd /opt/lampp/bin/ - sudo ./apachectl restart]
+    --  aprire in browser il nuovo ServerName/public
+    --  cd /opt/lampp/htdocs/WWW/LARAVEL/PROJECT_NAME   ->  chmod -R 0777 storage/
+
+
+-- ------------------------------- Laravel run -------------------------------------------------------------------------------------------
+
+    --  Accesso da localhost:8000 [ con vhosts.conf DISABILITATO su httpd.conf - # Include etc/extra/httpd-vhosts.conf ] 
+        --  cd PROJECT_PATH
+        --  php artisan serve
+        --  aprire in browser http://localhost:8000/
+
+    --  Accesso da VirtualHost [ con vhosts.conf ABILITATO su httpd.conf- Include etc/extra/httpd-vhosts.conf ]
+        --  aprire in browser il ServerName/public
+        
+  -- -------------------------------------------------------------------------------------------------------------------------------------   
+        
