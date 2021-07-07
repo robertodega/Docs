@@ -1,16 +1,12 @@
 -- ------------------------------- Laravel Installation ----------------------------------------------------------------------------------
 
--- ------------------------------- method 1 - Laravel Install via Sail Services 
+    -- ------------------------------- method 1 - Laravel Install via Sail Services 
 
     --  cd ~
     --  curl -s https://laravel.build/PROJECT_NAME | bash
     --  cd PROJECT_NAME && ./vendor/bin/sail up
 
-    -- -------------------------------  method 2 - Laravel Install via Composer
-
-    --  composer create-project laravel/laravel PROJECT_NAME
-    
-    -- -------------------------------  method 3 - Laravel Install via Installer    [ BETTER - rende il comando 'laravel' disponibile globalmente ]
+    -- -------------------------------  method 2 - Laravel Install via Installer
 
     --  cd ~/.config/composer/vendor/bin
     --  pwd     =>  /home/PERSONAL_FOLDER/.config/composer/vendor/bin
@@ -19,10 +15,21 @@
     --  aggiungere export PATH=/home/PERSONAL_FOLDER/.config/composer/vendor/bin:$PATH => Save & Exit
     --  source .bashrc
     --  ora il comando laravel è disponibile globalmente
-    --  cd /opt/lampp/htdocs/WWW/LARAVEL    -
-    --  creare nuovo progetto Laravel con 'laravel new PROJECT_NAME'
 
-    -- ------------------------------- Utilizzo VirtualHost per lanciare progetto Laravel ---------------------------------------------------
+    -- -------------------------------  creazione nuovo progetto Laravel
+
+    --  cd /opt/lampp/htdocs/WWW/LARAVEL/
+
+    -- -------------------------------  method 1 - mediante comando laravel
+
+        --  laravel new PROJECT_NAME
+
+    -- -------------------------------  method 2 - mediante Composer
+
+        --  composer create-project laravel/laravel PROJECT_NAME
+
+
+-- ------------------------------- Utilizzo VirtualHost per lanciare progetto Laravel ---------------------------------------------------
 
     --  sudo nano /opt/lampp/etc/httpd.conf
     --  decommentare riga # Include etc/extra/httpd-vhosts.conf [ sotto # Virtual hosts ]
@@ -52,7 +59,6 @@
     --  restart di Apache [ cd /opt/lampp/bin/ - sudo ./apachectl restart]
     --  aggiornare i permessi per il progetto: cd /opt/lampp/htdocs/WWW/LARAVEL/PROJECT_NAME   ->  chmod -R 0777 storage/
     --  aprire in browser il nuovo ServerName/public
-    
 
 
 -- ------------------------------- Laravel run -------------------------------------------------------------------------------------------
@@ -64,6 +70,29 @@
 
     --  Accesso da VirtualHost [ con vhosts.conf ABILITATO su httpd.conf- Include etc/extra/httpd-vhosts.conf ]
         --  aprire in browser il ServerName/public
-        
-  -- -------------------------------------------------------------------------------------------------------------------------------------   
-        
+
+
+--  -------------------------------Aggiunta librerie a progetto tramite Composer    [ https://packagist.org/ ]----------------------------
+
+        --  dalla cartella del progetto
+            --  composer require PACKAGE_NAME           #   libreria utilizzata in produzione
+            --  composer require --dev PACKAGE_NAME     #   dipendenze utili durante lo sviluppo ma che non servono in produzione
+
+            --  Es. (configurazione IDE PHPStorm per autocompletamento per Laravel)
+                --  cd /opt/lampp/htdocs/WWW/LARAVEL/laravelTest
+                --  composer require --dev barryvdh/laravel-ide-helper      #   cartella barryvdh ora presente in /vendor/
+                --  php artisan ide-helper:generate                         #   A new helper file was written to _ide_helper.php
+                --  php artisan ide-helper:models > yes                     #   Written new phpDocBlock to /opt/lampp/htdocs/WWW/LARAVEL/laravelTest/app/Models/User.php
+                    --  se errore per db assente    ->  creare PROJECT_DATABASE                    
+                    --  se errore per access denied to db:
+                        --  file .env -> aggiornare i dati per la connection
+                            DB_CONNECTION=mysql
+                            DB_HOST=127.0.0.1
+                            DB_PORT=3306
+                            DB_DATABASE=PROJECT_DATABASE
+                            DB_USERNAME=root
+                            DB_PASSWORD=
+                --  php artisan ide-helper:meta                             #   A new meta file was written to .phpstorm.meta.php
+
+
+
