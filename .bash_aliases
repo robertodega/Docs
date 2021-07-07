@@ -22,3 +22,8 @@ alias laravelDir='clear && cd /opt/lampp/htdocs/WWW/LARAVEL && lsla'
 alias gitStatus='clear && git branch && git status'
 alias gitAdd='clear && git add .'
 alias gitCommit='clear && git commit -m'
+
+alias composerAddProd='clear && composer require'
+alias composerAddDev='clear && composer require --dev'
+alias composerCreateProject='clear && composer create-project laravel/laravel'
+
