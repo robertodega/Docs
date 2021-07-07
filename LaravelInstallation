@@ -1,0 +1,26 @@
+-- ------------------------------- method 1 - Laravel Install via Sail Services 
+
+    --  cd ~
+    --  curl -s https://laravel.build/PROJECT_NAME | bash
+    --  cd PROJECT_NAME && ./vendor/bin/sail up
+
+    -- -------------------------------  method 2 - Laravel Install via Composer
+
+    --  composer create-project laravel/laravel PROJECT_NAME
+    
+    -- -------------------------------  method 3 - Laravel Install via Installer    [ BETTER ]
+
+    --  cd ~/.config/composer/vendor/bin
+    --  pwd     =>  /home/roby/.config/composer/vendor/bin
+    --  cd
+    --  nano .bashrc
+    --  aggiungere export PATH=/home/roby/.config/composer/vendor/bin:$PATH => Save & Exit
+    --  source .bashrc
+    --  ora il comando laravel è disponibile globalmente
+    --  cd /opt/lampp/htdocs/WWW/LARAVEL    ->  laravel new PROJECT_NAME
+
+    -- ------------------------------- Laravel run 
+
+    --  cd PROJECT_PATH
+    --  php artisan serve
+    --  http://localhost:8000/
