@@ -13,13 +13,14 @@
     -- -------------------------------  method 3 - Laravel Install via Installer    [ BETTER - rende il comando 'laravel' disponibile globalmente ]
 
     --  cd ~/.config/composer/vendor/bin
-    --  pwd     =>  /home/roby/.config/composer/vendor/bin
+    --  pwd     =>  /home/PERSONAL_FOLDER/.config/composer/vendor/bin
     --  cd
     --  nano .bashrc
-    --  aggiungere export PATH=/home/roby/.config/composer/vendor/bin:$PATH => Save & Exit
+    --  aggiungere export PATH=/home/PERSONAL_FOLDER/.config/composer/vendor/bin:$PATH => Save & Exit
     --  source .bashrc
     --  ora il comando laravel è disponibile globalmente
-    --  cd /opt/lampp/htdocs/WWW/LARAVEL    ->  laravel new PROJECT_NAME
+    --  cd /opt/lampp/htdocs/WWW/LARAVEL    -
+    --  creare nuovo progetto Laravel con 'laravel new PROJECT_NAME'
 
     -- ------------------------------- Utilizzo VirtualHost per lanciare progetto Laravel ---------------------------------------------------
 
@@ -33,7 +34,7 @@
             ServerAdmin webmaster@dummy-host2.example.com
             DocumentRoot "/opt/lampp/htdocs/WWW/LARAVEL/PROJECT_NAME"
             DirectoryIndex index.php
-            ServerName laravelTest.local
+            ServerName PROJECT_NAME.local
             ErrorLog "logs/PROJECT_NAME.local-error_log"
             CustomLog "logs/PROJECT_NAME.local-access_log" common
             <Directory "/opt/lampp/htdocs/WWW/LARAVEL/PROJECT_NAME/public">
@@ -47,7 +48,7 @@
     --  Copiare il valore di 'ServerName' ->  Save & Exit 
     --  sudo nano /etc/hosts
     --  aggiungere di fianco a '127.0.0.1 localhost' il nuovo ServerName ->  Save & Exit 
-    --  ricaricare il file di configurazione di Xampp [ sudo /opt/lampp/lampp reload ]
+    --  ricaricare il file di configurazione di Xampp [ sudo /opt/lampp/lampp reload - sudo /opt/lampp/lampp restart ]
     --  restart di Apache [ cd /opt/lampp/bin/ - sudo ./apachectl restart]
     --  aprire in browser il nuovo ServerName/public
     --  cd /opt/lampp/htdocs/WWW/LARAVEL/PROJECT_NAME   ->  chmod -R 0777 storage/
