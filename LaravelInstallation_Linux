@@ -10,7 +10,7 @@
 
     --  composer create-project laravel/laravel PROJECT_NAME
     
-    -- -------------------------------  method 3 - Laravel Install via Installer    [ BETTER ]
+    -- -------------------------------  method 3 - Laravel Install via Installer    [ BETTER - rende il comando 'laravel' disponibile globalmente ]
 
     --  cd ~/.config/composer/vendor/bin
     --  pwd     =>  /home/roby/.config/composer/vendor/bin
