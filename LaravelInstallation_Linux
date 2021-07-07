@@ -50,8 +50,9 @@
     --  aggiungere di fianco a '127.0.0.1 localhost' il nuovo ServerName ->  Save & Exit 
     --  ricaricare il file di configurazione di Xampp [ sudo /opt/lampp/lampp reload - sudo /opt/lampp/lampp restart ]
     --  restart di Apache [ cd /opt/lampp/bin/ - sudo ./apachectl restart]
+    --  aggiornare i permessi per il progetto: cd /opt/lampp/htdocs/WWW/LARAVEL/PROJECT_NAME   ->  chmod -R 0777 storage/
     --  aprire in browser il nuovo ServerName/public
-    --  cd /opt/lampp/htdocs/WWW/LARAVEL/PROJECT_NAME   ->  chmod -R 0777 storage/
+    
 
 
 -- ------------------------------- Laravel run -------------------------------------------------------------------------------------------
