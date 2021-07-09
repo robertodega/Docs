@@ -1,20 +1,8 @@
 -- ------------------------------- Laravel Installation ----------------------------------------------------------------------------------
 
-    -- ------------------------------- method 1 - Laravel Install via Sail Services 
-
-    --  cd ~
-    --  curl -s https://laravel.build/PROJECT_NAME | bash
-    --  cd PROJECT_NAME && ./vendor/bin/sail up
-
-    -- -------------------------------  method 2 - Laravel Install via Installer
-
-    --  cd ~/.config/composer/vendor/bin
-    --  pwd     =>  /home/PERSONAL_FOLDER/.config/composer/vendor/bin
-    --  cd
-    --  nano .bashrc
-    --  aggiungere export PATH=/home/PERSONAL_FOLDER/.config/composer/vendor/bin:$PATH => Save & Exit
-    --  source .bashrc
-    --  ora il comando laravel è disponibile globalmente
+    --  composer create-project laravel/laravel example-app
+    --  cd example-app
+    --  php artisan serve 
 
     -- -------------------------------  creazione nuovo progetto Laravel
 
